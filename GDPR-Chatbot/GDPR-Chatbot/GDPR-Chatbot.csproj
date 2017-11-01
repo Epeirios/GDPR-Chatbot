@@ -118,6 +118,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\Entity.cs" />
+    <Compile Include="Serialization\Intent.cs" />
+    <Compile Include="Serialization\Utterance.cs" />
+    <Compile Include="Services\LuisHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
