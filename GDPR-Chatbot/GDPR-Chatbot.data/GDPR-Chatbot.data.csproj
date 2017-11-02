@@ -47,12 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs" />
-    <Compile Include="AdditionalQuestions.cs" />
-    <Compile Include="Answer.cs" />
+    <Compile Include="Migrations\201711021151088_SecondDatabaseSetup.cs" />
+    <Compile Include="Migrations\201711021151088_SecondDatabaseSetup.Designer.cs">
+      <DependentUpon>201711021151088_SecondDatabaseSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\EntityQuestion.cs" />
+    <Compile Include="Models\Answer.cs" />
     <Compile Include="ConversationDataContext.cs" />
-    <Compile Include="AnswerEntities.cs" />
-    <Compile Include="Intent.cs" />
+    <Compile Include="Models\AnswerTypeEnum.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Intent.cs" />
     <Compile Include="Migrations\201711020903110_InitialSetup.cs" />
     <Compile Include="Migrations\201711020903110_InitialSetup.Designer.cs">
       <DependentUpon>201711020903110_InitialSetup.cs</DependentUpon>
@@ -67,6 +72,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711020903110_InitialSetup.resx">
       <DependentUpon>201711020903110_InitialSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021151088_SecondDatabaseSetup.resx">
+      <DependentUpon>201711021151088_SecondDatabaseSetup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

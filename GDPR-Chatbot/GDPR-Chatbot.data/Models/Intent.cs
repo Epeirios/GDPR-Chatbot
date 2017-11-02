@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GDPR_Chatbot.data
 {
-    class AdditionalQuestions
+    public class Intent
     {
         public int Id { get; set; }
-
+        public string Name { get; set; }
     }
 }

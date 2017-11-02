@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace GDPR_Chatbot.data
 {
-    class AnswerEntities
+    public class Entity
     {
         public int Id { get; set; }
-        public string IdentifierName { get; set; }
+        public string Type { get; set; }
         public string Content { get; set; }
+        public EntityQuestion Question {get; set;}
     }
 }
