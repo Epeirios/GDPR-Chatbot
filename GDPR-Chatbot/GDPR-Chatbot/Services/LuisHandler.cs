@@ -19,7 +19,7 @@ namespace GDPR_Chatbot.Services
             using (var client = new HttpClient())
             {
                 const string appID = "83680a15-a6c8-4a5a-8b10-a20075a998bc";
-                const string subKey = "fc5cc1eaa79941ca8abbcab6a2bdf306";
+                const string subKey = "6322289be2084851b1b6b93efbc48ac9";
 
                 var url = $"https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/{appID}?subscription-key={subKey}&timezoneOffset=0&verbose=true&q={message}";
                 client.DefaultRequestHeaders.Accept.Clear();

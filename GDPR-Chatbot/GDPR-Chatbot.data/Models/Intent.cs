@@ -8,7 +8,11 @@ namespace GDPR_Chatbot.data
 {
     public class Intent
     {
+
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public Answer Answer { get; set; }
+
     }
 }

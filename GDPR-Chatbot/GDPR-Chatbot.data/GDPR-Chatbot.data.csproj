@@ -51,6 +51,14 @@
     <Compile Include="Migrations\201711021151088_SecondDatabaseSetup.Designer.cs">
       <DependentUpon>201711021151088_SecondDatabaseSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711061922570_ExtraRelations.cs" />
+    <Compile Include="Migrations\201711061922570_ExtraRelations.Designer.cs">
+      <DependentUpon>201711061922570_ExtraRelations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711061956177_ExtraRelationsfix.cs" />
+    <Compile Include="Migrations\201711061956177_ExtraRelationsfix.Designer.cs">
+      <DependentUpon>201711061956177_ExtraRelationsfix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\EntityQuestion.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -75,6 +83,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711021151088_SecondDatabaseSetup.resx">
       <DependentUpon>201711021151088_SecondDatabaseSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061922570_ExtraRelations.resx">
+      <DependentUpon>201711061922570_ExtraRelations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061956177_ExtraRelationsfix.resx">
+      <DependentUpon>201711061956177_ExtraRelationsfix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

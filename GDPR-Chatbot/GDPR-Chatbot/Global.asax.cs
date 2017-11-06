@@ -14,17 +14,17 @@ namespace GDPR_Chatbot
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            AutoMapper.Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Microsoft.Bot.Connector.IMessageActivity, data.Activity>()
-                    .ForMember(dest => dest.FromId, opt => opt.MapFrom(src => src.From.Id))
-                    .ForMember(dest => dest.RecipientId, opt => opt.MapFrom(src => src.Recipient.Id))
-                    .ForMember(dest => dest.FromName, opt => opt.MapFrom(src => src.From.Name))
-                    .ForMember(dest => dest.RecipientName, opt => opt.MapFrom(src => src.Recipient.Name));
-            });
-            var builder = new ContainerBuilder();
-            builder.RegisterType<EntityFrameworkActivityLogger>().AsImplementedInterfaces().InstancePerDependency();
-            builder.Update(Conversation.Container);
+            //AutoMapper.Mapper.Initialize(cfg =>
+            //{
+            //    cfg.CreateMap<Microsoft.Bot.Connector.IMessageActivity, data.Activity>()
+            //        .ForMember(dest => dest.FromId, opt => opt.MapFrom(src => src.From.Id))
+            //        .ForMember(dest => dest.RecipientId, opt => opt.MapFrom(src => src.Recipient.Id))
+            //        .ForMember(dest => dest.FromName, opt => opt.MapFrom(src => src.From.Name))
+            //        .ForMember(dest => dest.RecipientName, opt => opt.MapFrom(src => src.Recipient.Name));
+            //});
+            //var builder = new ContainerBuilder();
+            //builder.RegisterType<EntityFrameworkActivityLogger>().AsImplementedInterfaces().InstancePerDependency();
+            //builder.Update(Conversation.Container);
         }
     }
 }
