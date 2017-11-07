@@ -11,10 +11,17 @@ namespace GDPR_Chatbot.data
     public class Answer
     {
 
+        public Answer()
+        {
+            ActiveQuestion = true;
+        }
+
         public int Id { get; set; }
         public string AnswerText { get; set; }
         public AnswerTypeEnum Type { get; set; }
-        public Entity Entity { get; set; }
+        public int TotalReviews { get; set; }
+        public int PositiveReviews { get; set; }
+        public bool ActiveQuestion { get; set; }
 
     }
 }

@@ -7,13 +7,13 @@ namespace GDPR_Chatbot.data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ExtraRelationsfix : IMigrationMetadata
+    public sealed partial class newIntialSetup : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ExtraRelationsfix));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newIntialSetup));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711061956177_ExtraRelationsfix"; }
+            get { return "201711071550532_newIntialSetup"; }
         }
         
         string IMigrationMetadata.Source

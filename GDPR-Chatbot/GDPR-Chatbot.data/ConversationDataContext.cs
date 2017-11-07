@@ -14,7 +14,6 @@ namespace GDPR_Chatbot.data
         {
         }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<EntityQuestion> AdditionalQuestions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Entity> Entities { get; set; }
         public DbSet<Intent> Intents { get; set; }

@@ -47,30 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201711021151088_SecondDatabaseSetup.cs" />
-    <Compile Include="Migrations\201711021151088_SecondDatabaseSetup.Designer.cs">
-      <DependentUpon>201711021151088_SecondDatabaseSetup.cs</DependentUpon>
+    <Compile Include="Migrations\201711071550532_newIntialSetup.cs" />
+    <Compile Include="Migrations\201711071550532_newIntialSetup.Designer.cs">
+      <DependentUpon>201711071550532_newIntialSetup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711061922570_ExtraRelations.cs" />
-    <Compile Include="Migrations\201711061922570_ExtraRelations.Designer.cs">
-      <DependentUpon>201711061922570_ExtraRelations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711061956177_ExtraRelationsfix.cs" />
-    <Compile Include="Migrations\201711061956177_ExtraRelationsfix.Designer.cs">
-      <DependentUpon>201711061956177_ExtraRelationsfix.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
-    <Compile Include="Models\EntityQuestion.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="ConversationDataContext.cs" />
     <Compile Include="Models\AnswerTypeEnum.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Intent.cs" />
-    <Compile Include="Migrations\201711020903110_InitialSetup.cs" />
-    <Compile Include="Migrations\201711020903110_InitialSetup.Designer.cs">
-      <DependentUpon>201711020903110_InitialSetup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,17 +65,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711020903110_InitialSetup.resx">
-      <DependentUpon>201711020903110_InitialSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021151088_SecondDatabaseSetup.resx">
-      <DependentUpon>201711021151088_SecondDatabaseSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711061922570_ExtraRelations.resx">
-      <DependentUpon>201711061922570_ExtraRelations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711061956177_ExtraRelationsfix.resx">
-      <DependentUpon>201711061956177_ExtraRelationsfix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711071550532_newIntialSetup.resx">
+      <DependentUpon>201711071550532_newIntialSetup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
