@@ -122,7 +122,10 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Dialogs\ContextQuestionDialog.cs" />
     <Compile Include="Dialogs\DynamicDialog.cs" />
+    <Compile Include="Dialogs\NoContextQuestionDialog.cs" />
+    <Compile Include="Dialogs\ReviewDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Dialogs\SuggestionDialog.cs" />
     <Compile Include="EntityFrameworkActivityLogger.cs" />
@@ -130,6 +133,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Serialization\Entity.cs" />
     <Compile Include="Serialization\Intent.cs" />
     <Compile Include="Serialization\Utterance.cs" />
@@ -151,6 +159,12 @@
       <Project>{1cf9cf62-eb64-4014-b34c-b8c0b8c8ae08}</Project>
       <Name>GDPR-Chatbot.data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

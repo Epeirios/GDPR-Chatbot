@@ -26,7 +26,7 @@ namespace GDPR_Chatbot.Dialogs
 
             var activity = await result as Activity;
 
-            var reply = activity.CreateReply("I don't understand the question you are asking me, please try something like this:");
+            var reply = activity.CreateReply("I don't understand the question you are asking me, please try asking something like this:");
             reply.Type = ActivityTypes.Message;
             reply.TextFormat = TextFormatTypes.Plain;
 
@@ -42,7 +42,7 @@ namespace GDPR_Chatbot.Dialogs
 
             await context.PostAsync(reply);
 
-            context.Wait(MessageReceivedAsync);
+            context.Wait(this.MessageReceivedAsync);
         }
     }
 }
