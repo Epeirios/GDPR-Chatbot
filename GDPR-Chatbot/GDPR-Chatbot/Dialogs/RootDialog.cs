@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System.Text;
+using GDPR_Chatbot.Serialization;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace GDPR_Chatbot.Dialogs
 {
@@ -16,47 +19,24 @@ namespace GDPR_Chatbot.Dialogs
             return Task.CompletedTask;
         }
 
-        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            StringBuilder output = new StringBuilder();
+            var message = await result;
 
-            var activity = await result as Activity;
+            Utterance response = await Services.LuisHandler.GetResponse((message.Text ?? string.Empty)); // this takes some time, based on the speed of luis service. 
 
-            var responce = await Services.LuisHandler.GetResponse((activity.Text ?? string.Empty));
-
-            if (responce != null)
+            switch (response.intents[0].intent)
             {
-                output.AppendLine($"You send: {activity.Text}");
-
-                if (responce.entities.Count >= 1)
-                {
-                    output.AppendLine($"\nEntity Name: {responce.entities[0].entity}");
-                    output.AppendLine($"\nEntity Score: {responce.entities[0].score}");
-                    output.AppendLine($"\nEntity Type: {responce.entities[0].type}");
-                }
-                else
-                {
-                    output.AppendLine($"\nNo Entities");
-                }
-
-                if (responce.intents.Count >= 1)
-                {
-                    output.AppendLine($"\nIntent Name: {responce.intents[0].intent}");
-                    output.AppendLine($"\nIntent Score: {responce.intents[0].score}");
-                }
-                else
-                {
-                    output.AppendLine($"No Intents");
-                }
-            }
-            else
-            {
-                output.Append("Luis Returned null");
-            }
-
-            await context.PostAsync(output.ToString());
-
-            context.Wait(MessageReceivedAsync);
+                case "None":
+                    await context.Forward(new SuggestionDialog(), null, message);
+                    break;
+                case "Help":
+                    await context.Forward(new SuggestionDialog(), null, message);
+                    break;
+                default:
+                    context.Wait(MessageReceivedAsync);
+                    break;
+            }            
         }
     }
 }

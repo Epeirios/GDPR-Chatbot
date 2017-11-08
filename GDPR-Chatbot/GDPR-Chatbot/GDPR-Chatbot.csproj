@@ -124,8 +124,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\DynamicDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
-    <Compile Include="Dialogs\SubDialogs\ISubDialog.cs" />
-    <Compile Include="Dialogs\SubDialogs\NoContextSubDialog.cs" />
+    <Compile Include="Dialogs\SuggestionDialog.cs" />
     <Compile Include="EntityFrameworkActivityLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
