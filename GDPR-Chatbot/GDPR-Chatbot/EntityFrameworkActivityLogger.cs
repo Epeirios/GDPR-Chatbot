@@ -22,7 +22,7 @@ namespace GDPR_Chatbot
                 dataContext.Activities.Add(newActivity);
                 dataContext.SaveChanges();
             }
-            return null;
+            return Task.CompletedTask;
         }
     }
 }
