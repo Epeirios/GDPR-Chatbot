@@ -16,7 +16,7 @@ namespace GDPR_Chatbot.Dialogs
 {
     [LuisModel("83680a15-a6c8-4a5a-8b10-a20075a998bc", "6322289be2084851b1b6b93efbc48ac9", domain: "westus.api.cognitive.microsoft.com")]
     [Serializable]
-    public class DynamicDialog : LuisDialog<object>
+    public class ContextlessDialog : LuisDialog<object>
     {
         [LuisIntent("")]
         [LuisIntent("None")]

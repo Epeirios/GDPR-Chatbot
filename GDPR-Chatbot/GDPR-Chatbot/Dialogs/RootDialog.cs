@@ -26,28 +26,7 @@ namespace GDPR_Chatbot.Dialogs
 
             if (responce != null)
             {
-                output.AppendLine($"You send: {activity.Text}");
-
-                if (responce.entities.Count >= 1)
-                {
-                    output.AppendLine($"\nEntity Name: {responce.entities[0].entity}");
-                    output.AppendLine($"\nEntity Score: {responce.entities[0].score}");
-                    output.AppendLine($"\nEntity Type: {responce.entities[0].type}");
-                }
-                else
-                {
-                    output.AppendLine($"\nNo Entities");
-                }
-
-                if (responce.intents.Count >= 1)
-                {
-                    output.AppendLine($"\nIntent Name: {responce.intents[0].intent}");
-                    output.AppendLine($"\nIntent Score: {responce.intents[0].score}");
-                }
-                else
-                {
-                    output.AppendLine($"No Intents");
-                }
+                await context.Call(new ContextlessDialog(), MessageReceivedAsync);
             }
             else
             {

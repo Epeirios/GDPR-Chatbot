@@ -20,7 +20,7 @@ namespace GDPR_Chatbot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new Dialogs.DynamicDialog());
+                await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
             }
             else
             {
