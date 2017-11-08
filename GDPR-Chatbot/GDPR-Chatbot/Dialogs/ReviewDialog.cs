@@ -68,9 +68,7 @@ namespace GDPR_Chatbot.Dialogs
                     Answer answer = dataContext.Answers
                         .Where(x => x.AnswerText == message.ReactionsAdded.Last().ToString())
                         .Select(x => x)
-                        .SingleOrDefault();
-
-                    
+                        .SingleOrDefault();                    
                 }
 
                 // update database
@@ -83,7 +81,7 @@ namespace GDPR_Chatbot.Dialogs
             }
             // else interper message a new dialog
 
-
+            context.Wait(this.MessageReceivedAsync);
         }
     }
 }
