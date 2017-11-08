@@ -31,10 +31,10 @@ namespace GDPR_Chatbot.Dialogs
             {
                 // handle exeptional cases
                 case "None":
-                    await context.Forward(new SuggestionDialog(), null, message);
+                    await context.Forward(new SuggestionDialog(), ResumeAfterQuestion, message, CancellationToken.None);
                     break;
                 case "Help":
-                    await context.Forward(new ReviewDialog(), null, message);
+                    await context.Forward(new SuggestionDialog(), ResumeAfterQuestion, message, CancellationToken.None);
                     break;
                 // default is question handler
                 default:

@@ -20,7 +20,7 @@ namespace GDPR_Chatbot.Dialogs
             return Task.CompletedTask;
         }
 
-        public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             var activity = await result as Microsoft.Bot.Connector.Activity;
 

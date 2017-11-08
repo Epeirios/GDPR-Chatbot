@@ -11,14 +11,12 @@ namespace GDPR_Chatbot.Dialogs
     [Serializable]
     public class SuggestionDialog : IDialog<object>
     {
-        public Task StartAsync(IDialogContext context)
+        public async Task StartAsync(IDialogContext context)
         {
             context.Wait(this.MessageReceivedAsync);
-
-            return Task.CompletedTask;
         }
 
-        public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             const string opt1 = "What is GDPR?";
             const string opt2 = "What are the penalties for not complying with the GDPR?";
@@ -42,7 +40,9 @@ namespace GDPR_Chatbot.Dialogs
 
             await context.PostAsync(reply);
 
-            context.Wait(this.MessageReceivedAsync);
+            //await context.PostAsync(activity.CreateReply("test"));
+
+            context.Done<object>(null);
         }
     }
 }
