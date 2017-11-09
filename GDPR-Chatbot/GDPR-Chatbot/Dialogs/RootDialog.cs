@@ -41,9 +41,10 @@ namespace GDPR_Chatbot.Dialogs
                     // determine if context or nocontext question
                     using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
                     {
-                        Answer answer = dataContext.Intents
-                            .Where(x => x.Name == response.intents[0].intent)
-                            .Select(x => x.Answer)
+                        string intent = response.intents[0].intent;
+                        // this currently only works for one answer per intent
+                        Answer answer = dataContext.Answers
+                            .Where(x => x.Intent.Name == intent)
                             .SingleOrDefault();
 
                         if (answer.Type == data.Models.AnswerTypeEnum.Context)
