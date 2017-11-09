@@ -49,7 +49,7 @@ namespace GDPR_Chatbot.Dialogs
 
                         if (answer.Type == data.Models.AnswerTypeEnum.Context)
                         {
-                            await context.Forward(new ContextQuestionDialog(), ResumeAfterQuestion, message);
+                            await context.Forward(new ContextQuestionDialog(answer), ResumeAfterQuestion, message);
                         }
                         else
                         {

@@ -11,5 +11,7 @@ namespace GDPR_Chatbot.data
         public int Id { get; set; }
         public string Name { get; set; }
         public string Question { get; set; }
+
+        public ICollection<Answer> answers { get; set; }
     }
 }

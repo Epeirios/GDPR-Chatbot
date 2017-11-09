@@ -26,5 +26,7 @@ namespace GDPR_Chatbot.data
 
         public Intent Intent { get; set; }
 
+        public ICollection<Entity> NeededEntities { get; set; }
+
     }
 }

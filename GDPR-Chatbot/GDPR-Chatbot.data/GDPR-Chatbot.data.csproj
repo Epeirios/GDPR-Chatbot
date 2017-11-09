@@ -55,6 +55,18 @@
     <Compile Include="Migrations\201711091138485_fixedRelation.Designer.cs">
       <DependentUpon>201711091138485_fixedRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711091526480_AddNeededEntitiesToAnswer.cs" />
+    <Compile Include="Migrations\201711091526480_AddNeededEntitiesToAnswer.Designer.cs">
+      <DependentUpon>201711091526480_AddNeededEntitiesToAnswer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711091527379_AddNeededEntitiesToAnswer1.cs" />
+    <Compile Include="Migrations\201711091527379_AddNeededEntitiesToAnswer1.Designer.cs">
+      <DependentUpon>201711091527379_AddNeededEntitiesToAnswer1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711091529528_AddAnswersToEntities.cs" />
+    <Compile Include="Migrations\201711091529528_AddAnswersToEntities.Designer.cs">
+      <DependentUpon>201711091529528_AddAnswersToEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -74,6 +86,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711091138485_fixedRelation.resx">
       <DependentUpon>201711091138485_fixedRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091526480_AddNeededEntitiesToAnswer.resx">
+      <DependentUpon>201711091526480_AddNeededEntitiesToAnswer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091527379_AddNeededEntitiesToAnswer1.resx">
+      <DependentUpon>201711091527379_AddNeededEntitiesToAnswer1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091529528_AddAnswersToEntities.resx">
+      <DependentUpon>201711091529528_AddAnswersToEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

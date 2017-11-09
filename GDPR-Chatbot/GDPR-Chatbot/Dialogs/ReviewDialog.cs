@@ -70,7 +70,6 @@ namespace GDPR_Chatbot.Dialogs
                         .Select(x => x)
                         .SingleOrDefault();                    
                 }
-
                 // update database
                 await context.PostAsync($"you said: {Resources.ReviewDialog_OptYes}");
             }
