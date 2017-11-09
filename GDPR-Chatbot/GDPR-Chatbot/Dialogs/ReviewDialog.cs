@@ -11,38 +11,25 @@ using GDPR_Chatbot.Properties;
 namespace GDPR_Chatbot.Dialogs
 {
     [Serializable]
-    public class ReviewDialog : IDialog<object>
+    public class ReviewDialog : IDialog<IMessageActivity>
     {
-        public Task StartAsync(IDialogContext context)
+        string _question;
+
+        public async Task StartAsync(IDialogContext context)
         {
             context.Wait(this.MessageReceivedAsync);
-
-            return Task.CompletedTask;
         }
 
-        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            var activity = await result as Microsoft.Bot.Connector.Activity;
+            var message = await result;
 
-            //var reply = context.MakeMessage();
+            _question = message.Text;
 
-            //var options = new[]
-            //{
-            //    Resources.ReviewDialog_OptYes,
-            //    Resources.ReviewDialog_OptNo,
-            //};
-            //reply.AddHeroCard(
-            //    Resources.ReviewDialog_ReviewQuestion,
-            //    options
-            //    );
-            //await context.PostAsync(reply);
-
-            //context.Wait(this.OnFeedbackGiven);
-
-            var reply = activity.CreateReply(Resources.ReviewDialog_ReviewQuestion);
+            var reply = context.MakeMessage();
+            reply.Text = Resources.ReviewDialog_ReviewQuestion;
             reply.Type = ActivityTypes.Message;
             reply.TextFormat = TextFormatTypes.Plain;
-
             reply.SuggestedActions = new SuggestedActions()
             {
                 Actions = new List<CardAction>()
@@ -59,29 +46,30 @@ namespace GDPR_Chatbot.Dialogs
 
         private async Task OnFeedbackGiven(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            var message = await result as Microsoft.Bot.Connector.Activity;
+            var message = await result;
 
             if (message.Text == Resources.ReviewDialog_OptYes)
             {
-                using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
-                {
-                    Answer answer = dataContext.Answers
-                        .Where(x => x.AnswerText == message.ReactionsAdded.Last().ToString())
-                        .Select(x => x)
-                        .SingleOrDefault();                    
-                }
+                message.Text = string.Empty;
 
                 // update database
-                await context.PostAsync($"you said: {Resources.ReviewDialog_OptYes}");
+                await context.PostAsync($"You said: {Resources.ReviewDialog_OptYes}");
             }
             else if (message.Text == Resources.ReviewDialog_OptNo)
             {
-                // updata database
-                await context.PostAsync($"you said: {Resources.ReviewDialog_OptNo}");
-            }
-            // else interper message a new dialog
+                message.Text = string.Empty;
 
-            context.Wait(this.MessageReceivedAsync);
+                // updata database
+                await context.PostAsync($"You said: {Resources.ReviewDialog_OptNo}");
+            }
+            //else
+            //{
+            //    // else interper message a new dialog
+
+            //    context.Done(message);
+            //}
+
+            context.Done(message);
         }
     }
 }

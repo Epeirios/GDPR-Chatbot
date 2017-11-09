@@ -41,7 +41,7 @@ namespace GDPR_Chatbot.Dialogs
                     // determine if context or nocontext question
                     using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
                     {
-                         string intent = response.intents[0].intent;
+                        string intent = response.intents[0].intent;
                         // this currently only works for one answer per intent
                         Answer answer = dataContext.Answers
                             .Where(x => x.Intent.Name == intent)
@@ -49,11 +49,11 @@ namespace GDPR_Chatbot.Dialogs
 
                         if (answer.Type == data.Models.AnswerTypeEnum.Context)
                         {
-                            await context.Forward(new ContextQuestionDialog(), ResumeAfterQuestion, message);
+                            await context.Forward(new ContextQuestionDialog(), ResumeAfterNoContextQuestionDialog, message);
                         }
                         else
                         {
-                            await context.Forward(new NoContextQuestionDialog(response.intents[0].intent), ResumeAfterNoContextQuestionDialog, message);
+                            await context.Forward(new NoContextQuestionDialog(response.intents[0].intent), ResumeAfterQuestion, message);
                         }
                     }
                     break;
@@ -67,30 +67,25 @@ namespace GDPR_Chatbot.Dialogs
             await MessageReceivedAsync(context, result);
         }
 
-        private async Task ResumeAfterNoContextQuestion(IDialogContext context, IAwaitable<object> result)
+        private async Task ResumeAfterQuestion(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            var message = await result as string;
+            var message = await result;
 
-            await context.PostAsync(message);
-
-            //await context.Forward(new ReviewDialog(), ResumeAfterReviewDialog, message);
-
-            context.Wait(MessageReceivedAsync);
+            await context.Forward(new ReviewDialog(), ResumeMessageAfterReview, message);
         }
 
-        private async Task ResumeAfterReviewDialog(IDialogContext context, IAwaitable<string> result)
+        private async Task ResumeMessageAfterReview(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            var message = await result as string;
+            var message = await result;
 
-        }
-
-        private async Task ResumeAfterQuestion(IDialogContext context, IAwaitable<object> result)
-        {
-            var message = await result as Microsoft.Bot.Connector.Activity;
-
-            //await context.Forward(new ReviewDialog(), MessageReceivedAsync, message);
-
-            //context.Wait(this.MessageReceivedAsync);
+            if (message.Text != string.Empty)
+            {
+                await MessageReceivedAsync(context, result);
+            }
+            else
+            {
+                context.Wait(MessageReceivedAsync);
+            }
         }
 
         private async Task ResumeAfterNoContextQuestionDialog(IDialogContext context, IAwaitable<object> result)
