@@ -51,6 +51,10 @@
     <Compile Include="Migrations\201711071550532_newIntialSetup.Designer.cs">
       <DependentUpon>201711071550532_newIntialSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711091138485_fixedRelation.cs" />
+    <Compile Include="Migrations\201711091138485_fixedRelation.Designer.cs">
+      <DependentUpon>201711091138485_fixedRelation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -67,6 +71,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711071550532_newIntialSetup.resx">
       <DependentUpon>201711071550532_newIntialSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091138485_fixedRelation.resx">
+      <DependentUpon>201711091138485_fixedRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

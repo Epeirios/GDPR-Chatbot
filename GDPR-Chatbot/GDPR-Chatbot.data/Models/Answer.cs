@@ -14,6 +14,7 @@ namespace GDPR_Chatbot.data
         public Answer()
         {
             ActiveQuestion = true;
+
         }
 
         public int Id { get; set; }
@@ -22,6 +23,8 @@ namespace GDPR_Chatbot.data
         public int TotalReviews { get; set; }
         public int PositiveReviews { get; set; }
         public bool ActiveQuestion { get; set; }
+
+        public Intent Intent { get; set; }
 
     }
 }
