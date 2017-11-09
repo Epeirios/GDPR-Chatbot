@@ -41,7 +41,7 @@ namespace GDPR_Chatbot.Dialogs
                     // determine if context or nocontext question
                     using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
                     {
-                        string intent = response.intents[0].intent;
+                         string intent = response.intents[0].intent;
                         // this currently only works for one answer per intent
                         Answer answer = dataContext.Answers
                             .Where(x => x.Intent.Name == intent)
@@ -49,7 +49,7 @@ namespace GDPR_Chatbot.Dialogs
 
                         if (answer.Type == data.Models.AnswerTypeEnum.Context)
                         {
-                            await context.Forward(new ContextQuestionDialog(), ResumeAfterQuestion, message);
+                            await context.Forward(new ContextQuestionDialog(response.intents[0].intent), ResumeAfterNoContextQuestionDialog, message);
                         }
                         else
                         {
@@ -67,6 +67,11 @@ namespace GDPR_Chatbot.Dialogs
             await context.Forward(new ReviewDialog(), MessageReceivedAsync, message);
 
             //context.Wait(this.MessageReceivedAsync);
+        }
+
+        private async Task ResumeAfterNoContextQuestionDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            context.Wait(this.MessageReceivedAsync);
         }
     }
 }
