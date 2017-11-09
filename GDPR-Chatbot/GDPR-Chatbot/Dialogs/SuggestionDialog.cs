@@ -28,19 +28,32 @@ namespace GDPR_Chatbot.Dialogs
 
             // TODO search database for similar questions based on message
 
-            PromptDialog.Choice(context, this.OnOptionSelected, options, Properties.Resources.SuggestionDialog_NotUnderstandQuestion, Properties.Resources.SuggestionDialog_NotValidOption, 0);
+            PromptDialog.Choice(context, this.OnOptionSelected, options, Properties.Resources.SuggestionDialog_NotUnderstandQuestion);
         }
 
         private async Task OnOptionSelected(IDialogContext context, IAwaitable<string> result)
         {
             string optionSelected = await result;
 
-            if (options.Contains(optionSelected))
+            try
             {
-                Activity temp = new Activity();
-                temp.Text = optionSelected;
+                if (options.Contains(optionSelected))
+                {
+                    Activity temp = new Activity();
+                    temp.Text = optionSelected;
 
-                context.Done(temp);
+                    context.Done(temp);
+                }
+            }
+            catch (TooManyAttemptsException ex)
+            {
+                if (options.Contains(optionSelected))
+                {
+                    Activity temp = new Activity();
+                    temp.Text = optionSelected;
+
+                    context.Done(temp);
+                }
             }
         }
     }
