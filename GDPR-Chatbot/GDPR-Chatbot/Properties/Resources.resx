@@ -126,4 +126,13 @@
   <data name="ReviewDialog_ReviewQuestion" xml:space="preserve">
     <value>Was this response usefull?</value>
   </data>
+  <data name="SuggestionDialog_NotUnderstandQuestion" xml:space="preserve">
+    <value>I don't understand the question you are asking me, please try asking something like this:</value>
+  </data>
+  <data name="SuggestionDialog_NotValidOption" xml:space="preserve">
+    <value>Not a valid Option</value>
+  </data>
+  <data name="TopicLocal" xml:space="preserve">
+    <value>##--TopicLocal--##</value>
+  </data>
 </root>

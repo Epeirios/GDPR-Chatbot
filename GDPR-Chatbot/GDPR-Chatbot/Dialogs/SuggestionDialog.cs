@@ -9,40 +9,39 @@ using Microsoft.Bot.Connector;
 namespace GDPR_Chatbot.Dialogs
 {
     [Serializable]
-    public class SuggestionDialog : IDialog<object>
+    public class SuggestionDialog : IDialog<IMessageActivity>
     {
+        List<string> options = new List<string>(){
+            "What is GDPR?",
+            "What are the penalties for not complying with the GDPR?",
+            "Who does the GDPR affect?"
+        };
+
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(this.MessageReceivedAsync);
         }
 
-        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            const string opt1 = "What is GDPR?";
-            const string opt2 = "What are the penalties for not complying with the GDPR?";
-            const string opt3 = "Who does the GDPR affect?";
+            var message = await result;
 
-            var activity = await result as Activity;
+            // TODO search database for similar questions based on message
 
-            var reply = activity.CreateReply("I don't understand the question you are asking me, please try asking something like this:");
-            reply.Type = ActivityTypes.Message;
-            reply.TextFormat = TextFormatTypes.Plain;
+            PromptDialog.Choice(context, this.OnOptionSelected, options, Properties.Resources.SuggestionDialog_NotUnderstandQuestion, Properties.Resources.SuggestionDialog_NotValidOption, 0);
+        }
 
-            reply.SuggestedActions = new SuggestedActions()
+        private async Task OnOptionSelected(IDialogContext context, IAwaitable<string> result)
+        {
+            string optionSelected = await result;
+
+            if (options.Contains(optionSelected))
             {
-                Actions = new List<CardAction>()
-                    {
-                        new CardAction(){ Title = opt1, Type=ActionTypes.ImBack, Value=opt1 },
-                        new CardAction(){ Title = opt2, Type=ActionTypes.ImBack, Value=opt2 },
-                        new CardAction(){ Title = opt3, Type=ActionTypes.ImBack, Value=opt3 }
-                    }
-            };
+                Activity temp = new Activity();
+                temp.Text = optionSelected;
 
-            await context.PostAsync(reply);
-
-            //await context.PostAsync(activity.CreateReply("test"));
-
-            context.Done(activity);
+                context.Done(temp);
+            }
         }
     }
 }

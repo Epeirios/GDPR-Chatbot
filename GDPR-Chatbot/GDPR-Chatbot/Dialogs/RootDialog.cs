@@ -21,9 +21,9 @@ namespace GDPR_Chatbot.Dialogs
             return Task.CompletedTask;
         }
 
-        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            var message = await result as Microsoft.Bot.Connector.Activity;
+            var message = await result;
 
             Utterance response = await Services.LuisHandler.GetResponse((message.Text ?? string.Empty)); // this takes some time, based on the speed of luis service. 
 
@@ -31,10 +31,10 @@ namespace GDPR_Chatbot.Dialogs
             {
                 // handle exeptional cases
                 case "None":
-                    await context.Forward(new NoContextQuestionDialog(), ResumeAfterQuestion, result, CancellationToken.None);
+                    await context.Forward(new SuggestionDialog(), ResumeAfterSuggestion, message, CancellationToken.None);
                     break;
                 case "Help":
-                    await context.Forward(new NoContextQuestionDialog(), ResumeAfterQuestion, result, CancellationToken.None);
+                    await context.Forward(new SuggestionDialog(), ResumeAfterSuggestion, message, CancellationToken.None);
                     break;
                 // default is question handler
                 default:
@@ -59,11 +59,35 @@ namespace GDPR_Chatbot.Dialogs
             }
         }
 
+        private async Task ResumeAfterSuggestion(IDialogContext context, IAwaitable<IMessageActivity> result)
+        {
+            var message = await result;
+
+            await MessageReceivedAsync(context, result);
+        }
+
+        private async Task ResumeAfterNoContextQuestion(IDialogContext context, IAwaitable<object> result)
+        {
+            var message = await result as string;
+
+            await context.PostAsync(message);
+
+            //await context.Forward(new ReviewDialog(), ResumeAfterReviewDialog, message);
+
+            context.Wait(MessageReceivedAsync);
+        }
+
+        private async Task ResumeAfterReviewDialog(IDialogContext context, IAwaitable<string> result)
+        {
+            var message = await result as string;
+
+        }
+
         private async Task ResumeAfterQuestion(IDialogContext context, IAwaitable<object> result)
         {
             var message = await result as Microsoft.Bot.Connector.Activity;
 
-            await context.Forward(new ReviewDialog(), MessageReceivedAsync, message);
+            //await context.Forward(new ReviewDialog(), MessageReceivedAsync, message);
 
             //context.Wait(this.MessageReceivedAsync);
         }

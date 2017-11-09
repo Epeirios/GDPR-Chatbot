@@ -86,5 +86,32 @@ namespace GDPR_Chatbot.Properties {
                 return ResourceManager.GetString("ReviewDialog_ReviewQuestion", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I don&apos;t understand the question you are asking me, please try asking something like this:.
+        /// </summary>
+        internal static string SuggestionDialog_NotUnderstandQuestion {
+            get {
+                return ResourceManager.GetString("SuggestionDialog_NotUnderstandQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not a valid Option.
+        /// </summary>
+        internal static string SuggestionDialog_NotValidOption {
+            get {
+                return ResourceManager.GetString("SuggestionDialog_NotValidOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ##--TopicLocal--##.
+        /// </summary>
+        internal static string TopicLocal {
+            get {
+                return ResourceManager.GetString("TopicLocal", resourceCulture);
+            }
+        }
     }
 }
