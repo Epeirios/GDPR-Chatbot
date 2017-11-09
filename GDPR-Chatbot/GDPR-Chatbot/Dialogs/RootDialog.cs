@@ -53,7 +53,7 @@ namespace GDPR_Chatbot.Dialogs
                         }
                         else
                         {
-                            await context.Forward(new NoContextQuestionDialog(response.intents[0].intent), ResumeAfterNoContextQuestionDialog, message);
+                            await context.Forward(new NoContextQuestionDialog(response.intents[0].intent), ResumeAfterQuestion, message);
                         }
                     }
                     break;
@@ -67,35 +67,25 @@ namespace GDPR_Chatbot.Dialogs
             await MessageReceivedAsync(context, result);
         }
 
-        private async Task ResumeAfterNoContextQuestion(IDialogContext context, IAwaitable<object> result)
-        {
-            var message = await result as string;
-
-            await context.PostAsync(message);
-
-            //await context.Forward(new ReviewDialog(), ResumeAfterReviewDialog, message);
-
-            context.Wait(MessageReceivedAsync);
-        }
-
-        private async Task ResumeAfterReviewDialog(IDialogContext context, IAwaitable<string> result)
-        {
-            var message = await result as string;
-
-        }
-
         private async Task ResumeAfterQuestion(IDialogContext context, IAwaitable<object> result)
         {
             var message = await result as Microsoft.Bot.Connector.Activity;
 
-            //await context.Forward(new ReviewDialog(), MessageReceivedAsync, message);
-
-            //context.Wait(this.MessageReceivedAsync);
+            await context.Forward(new ReviewDialog(), ResumeAfterReviewDialog, message);
         }
 
-        private async Task ResumeAfterNoContextQuestionDialog(IDialogContext context, IAwaitable<object> result)
+        private async Task ResumeAfterReviewDialog(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            context.Wait(this.MessageReceivedAsync);
+            var message = await result;
+
+            if (message.Text != string.Empty)
+            {
+                await MessageReceivedAsync(context, result);
+            }
+            else
+            {
+                context.Wait(MessageReceivedAsync);
+            }
         }
     }
 }
