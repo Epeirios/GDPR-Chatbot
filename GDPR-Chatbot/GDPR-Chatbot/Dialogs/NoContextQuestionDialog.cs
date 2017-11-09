@@ -19,7 +19,9 @@ namespace GDPR_Chatbot.Dialogs
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
+            await context.PostAsync("nocontext blabla");
 
+            context.Done(result);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace GDPR_Chatbot.Dialogs
 
             //await context.PostAsync(activity.CreateReply("test"));
 
-            context.Done<object>(null);
+            context.Done(activity);
         }
     }
 }
