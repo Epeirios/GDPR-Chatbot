@@ -1,4 +1,5 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
+﻿using GDPR_Chatbot.data;
+using Microsoft.Bot.Builder.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,13 @@ namespace GDPR_Chatbot.Dialogs
     [Serializable]
     public class NoContextQuestionDialog : IDialog<object>
     {
+        private string intent;
+
+        public NoContextQuestionDialog(string intent)
+        {
+            this.intent = intent;
+        }
+
         public Task StartAsync(IDialogContext context)
         {
             context.Wait(this.MessageReceivedAsync);
@@ -19,9 +27,18 @@ namespace GDPR_Chatbot.Dialogs
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            await context.PostAsync("nocontext blabla");
 
-            context.Done(result);
+            using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
+            {
+                Answer answer = dataContext.Answers
+                    .Where(x => x.Intent.Name == this.intent)
+                    .SingleOrDefault();
+
+                await context.PostAsync(answer.AnswerText);
+
+                context.Done(answer.AnswerText);
+
+            }
         }
     }
 }
