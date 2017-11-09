@@ -122,8 +122,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="Dialogs\ContextQuestionDialog.cs" />
     <Compile Include="Dialogs\NoContextQuestionDialog.cs" />
+    <Compile Include="Dialogs\ContextQuestionDialog.cs" />
     <Compile Include="Dialogs\ReviewDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Dialogs\SuggestionDialog.cs" />
