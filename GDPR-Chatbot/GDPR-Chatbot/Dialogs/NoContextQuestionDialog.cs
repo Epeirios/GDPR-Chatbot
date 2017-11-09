@@ -1,5 +1,6 @@
 ﻿using GDPR_Chatbot.data;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Connector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web;
 namespace GDPR_Chatbot.Dialogs
 {
     [Serializable]
-    public class NoContextQuestionDialog : IDialog<object>
+    public class NoContextQuestionDialog : IDialog<IMessageActivity>
     {
         private string intent;
 
@@ -25,9 +26,8 @@ namespace GDPR_Chatbot.Dialogs
             return Task.CompletedTask;
         }
 
-        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-
             using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
             {
                 Answer answer = dataContext.Answers
@@ -36,8 +36,11 @@ namespace GDPR_Chatbot.Dialogs
 
                 await context.PostAsync(answer.AnswerText);
 
-                context.Done(answer.AnswerText);
+                Microsoft.Bot.Connector.Activity activity = new Microsoft.Bot.Connector.Activity();
+                
+                activity.Text = answer.AnswerText;
 
+                context.Done(activity);
             }
         }
     }
