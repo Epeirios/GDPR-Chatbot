@@ -50,9 +50,7 @@ namespace GDPR_Chatbot.Dialogs
                 await context.PostAsync(entity.Key + " : " + entity.Value);
             }
 
-            Microsoft.Bot.Connector.Activity activity = new Microsoft.Bot.Connector.Activity();
-            activity.Text = answer.AnswerText;
-            context.Done(activity);
+            context.Done(await result);
         }
 
         private async Task<Answer> GetAnswerWithEntities(string intentName)
