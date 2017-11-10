@@ -15,12 +15,10 @@ namespace GDPR_Chatbot.Dialogs
     public class ContextQuestionDialog : IDialog<object>
     {
         private string intent;
-        private Dictionary<string, string> entities;
 
         public ContextQuestionDialog(string intent)
         {
             this.intent = intent;
-            this.entities = new Dictionary<string, string>();
         }
 
         public Task StartAsync(IDialogContext context)
@@ -32,25 +30,40 @@ namespace GDPR_Chatbot.Dialogs
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            Answer answer = await GetAnswerWithEntities(this.intent);
-
-            foreach (GDPR_Chatbot.data.Entity entity in answer.NeededEntities)
+            if (!context.UserData.ContainsKey("contextQuestion.Answer"))
             {
-                while (!this.entities.Keys.Contains(entity.Name))
+                Answer answer = await GetAnswerWithEntities(this.intent);
+                context.UserData.SetValue("contextQuestion.Answer", answer);
+            }
+
+            foreach (data.Entity entity in context.UserData.GetValue<Answer>("contextQuestion.Answer").NeededEntities)
+            {
+                if (!context.UserData.ContainsKey(entity.Name))
                 {
-                    await context.PostAsync(entity.Question);
-                    context.Wait(this.ProcesEntityQuestionAnswer);
+                    context.UserData.SetValue("contextQuestion.AllEntitiesAnswered", false);
+                    context.UserData.SetValue("contextQuestion.UnansweredEntity", entity);
                 }
             }
 
-            await context.PostAsync("You gave the following entities : ");
-
-            foreach (var entity in this.entities)
+            if (!context.UserData.GetValue<bool>("contextQuestion.AllEntitiesAnswered"))
             {
-                await context.PostAsync(entity.Key + " : " + entity.Value);
-            }
+                await context.PostAsync(context.UserData.GetValue<data.Entity>("contextQuestion.UnansweredEntity").Question);
+                context.Wait(ProcesEntityQuestionAnswer);
+            } else
+            {
+                await context.PostAsync("You gave the following entities : ");
 
-            context.Done(await result);
+                foreach (data.Entity entity in context.UserData.GetValue<Answer>("contextQuestion.Answer").NeededEntities)
+                {
+                    await context.PostAsync(entity.Name + " : " + context.UserData.GetValue<string>(entity.Name));
+                }
+
+                context.UserData.RemoveValue("contextQuestion.Answer");
+                context.UserData.RemoveValue("contextQuestion.UnansweredEntity");
+                context.UserData.RemoveValue("contextQuestion.AllEntitiesAnswered");
+
+                context.Done(result);
+            }
         }
 
         private async Task<Answer> GetAnswerWithEntities(string intentName)
@@ -64,18 +77,22 @@ namespace GDPR_Chatbot.Dialogs
             }
         }
 
-        private async Task ProcesEntityQuestionAnswer(IDialogContext context, IAwaitable<IMessageActivity> result)
+        private async Task ProcesEntityQuestionAnswer (IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var message = await result;
             Utterance response = await Services.LuisHandler.GetResponse((message.Text ?? string.Empty)); // this takes some time, based on the speed of luis service. 
 
-            if (response.intents[0].intent != "AnswerEntityQuestion")
+            if (response.intents[0].intent != "AnswerEntityQuestion" && 
+                context.UserData.GetValue<data.Entity>("contextQuestion.UnansweredEntity").Name == response.entities[0].type)
             {
-                this.entities.Add(response.entities[0].type, response.entities[0].entity);
-            } else
+                context.UserData.SetValue(response.entities[0].type, response.entities[0].entity);
+            }
+            else
             {
                 await context.PostAsync("I didn't understand that.");
             }
+
+            context.Wait(MessageReceivedAsync);
         }
     }
 }

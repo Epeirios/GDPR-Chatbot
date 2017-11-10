@@ -124,7 +124,7 @@
     <value>Yes</value>
   </data>
   <data name="ReviewDialog_ReviewQuestion" xml:space="preserve">
-    <value>Was this response usefull?</value>
+    <value>Was this response useful?</value>
   </data>
   <data name="ReviewDialog_ThanksFeedback" xml:space="preserve">
     <value>Thanks for your feedback!</value>
