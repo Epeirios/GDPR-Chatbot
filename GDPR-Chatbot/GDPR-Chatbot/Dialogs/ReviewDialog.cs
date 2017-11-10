@@ -52,22 +52,39 @@ namespace GDPR_Chatbot.Dialogs
             {
                 message.Text = string.Empty;
 
-                // update database
-                await context.PostAsync($"You said: {Resources.ReviewDialog_OptYes}");
+                using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
+                {
+                    Answer answer = dataContext.Answers
+                        .Where(x => x.AnswerText == _question)
+                        .SingleOrDefault();
+                    if (answer != null)
+                    {
+                        answer.TotalReviews++;
+                        answer.PositiveReviews++;
+                        dataContext.SaveChanges();
+                    }
+                }
+
+                await context.PostAsync(Resources.ReviewDialog_ThanksFeedback);
             }
             else if (message.Text == Resources.ReviewDialog_OptNo)
             {
                 message.Text = string.Empty;
 
-                // updata database
-                await context.PostAsync($"You said: {Resources.ReviewDialog_OptNo}");
-            }
-            //else
-            //{
-            //    // else interper message a new dialog
+                using (data.ConversationDataContext dataContext = new data.ConversationDataContext())
+                {
+                    Answer answer = dataContext.Answers
+                        .Where(x => x.AnswerText == _question)
+                        .SingleOrDefault();
+                    if (answer != null)
+                    {
+                        answer.TotalReviews++;
+                        dataContext.SaveChanges();
+                    }
+                }
 
-            //    context.Done(message);
-            //}
+                await context.PostAsync(Resources.ReviewDialog_ThanksFeedback);
+            }
 
             context.Done(message);
         }

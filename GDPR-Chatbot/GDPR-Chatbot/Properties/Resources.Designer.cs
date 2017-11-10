@@ -88,6 +88,15 @@ namespace GDPR_Chatbot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thanks for your feedback!.
+        /// </summary>
+        internal static string ReviewDialog_ThanksFeedback {
+            get {
+                return ResourceManager.GetString("ReviewDialog_ThanksFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I don&apos;t understand the question you are asking me, please try asking something like this:.
         /// </summary>
         internal static string SuggestionDialog_NotUnderstandQuestion {
